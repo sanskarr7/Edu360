@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 class LibraryScreen extends StatefulWidget {
+  const LibraryScreen({super.key});
+
   @override
   _LibraryScreenState createState() => _LibraryScreenState();
 }
 
 class _LibraryScreenState extends State<LibraryScreen> {
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
   List<Book> allBooks = [
     Book(title: "The Lean Startup", author: "Eric Ries", overdueDays: 5, dueDate: "2025/01/15"),
     Book(title: "Sapiens", author: "Yuval Noah Harari", overdueDays: 12, dueDate: "2025/01/10"),
@@ -44,12 +46,12 @@ class _LibraryScreenState extends State<LibraryScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: Text(
+        title: const Text(
           "Library",
           style: TextStyle(
             color: Colors.orange,
@@ -59,24 +61,24 @@ class _LibraryScreenState extends State<LibraryScreen> {
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
-        iconTheme: IconThemeData(color: Colors.orange),
+        iconTheme: const IconThemeData(color: Colors.orange),
       ),
       body: DefaultTabController(
         length: 2, // Number of tabs
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: TextField(
                 controller: _searchController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Search Books',
                   prefixIcon: Icon(Icons.search),
                   border: OutlineInputBorder(),
                 ),
               ),
             ),
-            TabBar(
+            const TabBar(
               indicatorColor: Colors.teal,
               tabs: [
                 Tab(child: Text("My Books", style: TextStyle(color: Colors.teal))),
@@ -88,8 +90,8 @@ class _LibraryScreenState extends State<LibraryScreen> {
                 children: [
                   // First Tab: My Books
                   ListView(
-                    padding: EdgeInsets.all(16),
-                    children: [
+                    padding: const EdgeInsets.all(16),
+                    children: const [
                       BookTile(
                         title: "Atomic Habits",
                         author: "James Clear",
@@ -106,7 +108,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                   ),
                   // Second Tab: All Books with Search Filter
                   ListView.builder(
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     itemCount: filteredBooks.length,
                     itemBuilder: (context, index) {
                       final book = filteredBooks[index];
@@ -124,7 +126,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
           ],
         ),
       ),
-      backgroundColor: Color(0xFFF6F6F6),
+      backgroundColor: const Color(0xFFF6F6F6),
     );
   }
 }
@@ -149,17 +151,17 @@ class BookTile extends StatelessWidget {
   final int overdueDays;
   final String dueDate;
 
-  BookTile({required this.title, required this.author, required this.overdueDays, required this.dueDate});
+  const BookTile({super.key, required this.title, required this.author, required this.overdueDays, required this.dueDate});
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(vertical: 8),
+      margin: const EdgeInsets.symmetric(vertical: 8),
       child: ListTile(
-        leading: Icon(Icons.book, size: 40, color: Colors.teal),
-        title: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+        leading: const Icon(Icons.book, size: 40, color: Colors.teal),
+        title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
         subtitle: Text("By $author\nOverdue by $overdueDays Days"),
-        trailing: Text(dueDate, style: TextStyle(color: Colors.red)),
+        trailing: Text(dueDate, style: const TextStyle(color: Colors.red)),
       ),
     );
   }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ResultsScreen extends StatelessWidget {
+  const ResultsScreen({super.key});
+
   // Method to calculate total percentage for each term
   double calculateTotal(List<double> percentages) {
     double total = percentages.reduce((a, b) => a + b);
@@ -18,35 +20,36 @@ class ResultsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: Text(
+        title: const Text(
           "Results",
           style: TextStyle(
-            color: Colors.orange,
+            color: Color(0xFFF8A35A),  // Corrected color format
             fontWeight: FontWeight.bold,
           ),
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
-        elevation: 0,
-        iconTheme: IconThemeData(color: Colors.orange),
+        elevation: 5,
       ),
       body: DefaultTabController(
         length: 4, // Number of tabs
         child: Column(
           children: [
             // TabBar for selecting different terms
-            TabBar(
-              indicatorColor: Colors.teal,
+            const TabBar(
+              indicatorColor: Colors.tealAccent,
+              labelColor: Colors.teal,
+              unselectedLabelColor: Colors.grey,
               tabs: [
-                Tab(child: Text("1st Term", style: TextStyle(color: Colors.teal))),
-                Tab(child: Text("2nd Term", style: TextStyle(color: Colors.teal))),
-                Tab(child: Text("3rd Term", style: TextStyle(color: Colors.teal))),
-                Tab(child: Text("Final", style: TextStyle(color: Colors.teal))),
+                Tab(child: Text("1st Term")),
+                Tab(child: Text("2nd Term")),
+                Tab(child: Text("3rd Term")),
+                Tab(child: Text("Final")),
               ],
             ),
             Expanded(
@@ -66,7 +69,7 @@ class ResultsScreen extends StatelessWidget {
           ],
         ),
       ),
-      backgroundColor: Color(0xFFF6F6F6),
+      backgroundColor: const Color(0xFFf3f4f6),
     );
   }
 }
@@ -74,7 +77,7 @@ class ResultsScreen extends StatelessWidget {
 class ResultsForTerm extends StatelessWidget {
   final List<double> percentages;
 
-  ResultsForTerm({required this.percentages});
+  const ResultsForTerm({super.key, required this.percentages});
 
   @override
   Widget build(BuildContext context) {
@@ -84,16 +87,24 @@ class ResultsForTerm extends StatelessWidget {
       children: [
         // Display Total for the Term
         Container(
-          padding: EdgeInsets.all(16),
-          margin: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(20),
+          margin: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: Colors.teal[100],
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(15),
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 10,
+                spreadRadius: 2,
+                offset: Offset(0, 4),
+              ),
+            ],
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              const Text(
                 "Total: ",
                 style: TextStyle(
                   fontSize: 18,
@@ -103,7 +114,7 @@ class ResultsForTerm extends StatelessWidget {
               ),
               Text(
                 "${total.toStringAsFixed(2)}%",  // Display total as percentage
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: Colors.teal,
@@ -115,7 +126,7 @@ class ResultsForTerm extends StatelessWidget {
         // List of Results for the Subjects in the Term
         Expanded(
           child: ListView(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             children: [
               ResultTile(subject: "Math", percentage: percentages[0], grade: "B"),
               ResultTile(subject: "English", percentage: percentages[1], grade: "A"),
@@ -143,19 +154,30 @@ class ResultTile extends StatelessWidget {
   final double percentage;
   final String grade;
 
-  ResultTile({required this.subject, required this.percentage, required this.grade});
+  const ResultTile({super.key, required this.subject, required this.percentage, required this.grade});
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(vertical: 8),
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
+      elevation: 5,
       child: ListTile(
-        leading: Icon(Icons.school, size: 40, color: Colors.teal),
-        title: Text(subject, style: TextStyle(fontWeight: FontWeight.bold)),
-        subtitle: Text("Percentage: $percentage%"),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        leading: const Icon(Icons.school, size: 40, color: Colors.teal),
+        title: Text(
+          subject,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+        ),
+        subtitle: Text(
+          "Percentage: $percentage%",
+          style: const TextStyle(fontSize: 16),
+        ),
         trailing: Text(
           "Grade: $grade",
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.teal),
+          style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.teal, fontSize: 16),
         ),
       ),
     );

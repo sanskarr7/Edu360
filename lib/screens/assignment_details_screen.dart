@@ -4,14 +4,16 @@ import 'package:file_picker/file_picker.dart';
 class AssignmentDetailsScreen extends StatefulWidget {
   final Map<String, dynamic> assignment;
 
-  AssignmentDetailsScreen({required this.assignment});
+  const AssignmentDetailsScreen({super.key, required this.assignment});
 
   @override
-  _AssignmentDetailsScreenState createState() => _AssignmentDetailsScreenState();
+  // ignore: library_private_types_in_public_api
+  _AssignmentDetailsScreenState createState() =>
+      _AssignmentDetailsScreenState();
 }
 
 class _AssignmentDetailsScreenState extends State<AssignmentDetailsScreen> {
-  late String _fileName;
+  String? _fileName;
   bool _fileAttached = false;
 
   // Function to pick a PDF file
@@ -31,23 +33,95 @@ class _AssignmentDetailsScreenState extends State<AssignmentDetailsScreen> {
 
   // Function to submit the assignment
   void _submitAssignment() {
-    // Add your logic to submit the assignment here
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Assignment Submitted Successfully!')),
+      const SnackBar(
+        content: Text('Assignment Submitted Successfully!'),
+        backgroundColor: Colors.green,
+      ),
     );
-    Navigator.pop(context);  // Navigate back after submission
+    Navigator.pop(context);
+  }
+
+  Widget _buildInfoRow(IconData icon, String text) {
+    return Row(
+      children: [
+        Icon(icon, color: Colors.grey),
+        const SizedBox(width: 6),
+        Text(
+          text,
+          style: const TextStyle(fontSize: 16, color: Colors.black87),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildUploadSection() {
+    return GestureDetector(
+      onTap: _pickFile,
+      child: Container(
+        padding: const EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 5,
+              spreadRadius: 2,
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.file_upload, color: Color(0xFF60B8AF)),
+            const SizedBox(width: 10),
+            Text(
+              _fileAttached ? _fileName! : 'Tap to select a PDF file',
+              style: const TextStyle(fontSize: 16, color: Colors.black54),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSubmitButton() {
+    return ElevatedButton(
+      onPressed: _fileAttached ? _submitAssignment : null,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.blue,
+        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+      child: Text(
+        widget.assignment['isSubmitted']
+            ? 'Already Submitted'
+            : 'Submit Assignment',
+        style: const TextStyle(fontSize: 18, color: Colors.white),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF3F4F6), // Light background for contrast
       appBar: AppBar(
-        title: Text(
-          widget.assignment['title'],
-          style: TextStyle(color: Colors.white),
+        title: const Text(
+          'Assignment Details',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFF8A35A), // Updated to requested color
+          ),
         ),
-        backgroundColor: Colors.deepPurple,
-        iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor: Colors.white, // Updated to white
+        centerTitle: true,
+        iconTheme: const IconThemeData(color: Colors.black),
+        elevation: 0,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -55,118 +129,79 @@ class _AssignmentDetailsScreenState extends State<AssignmentDetailsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Assignment Title
-              Text(
-                widget.assignment['title'],
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
+              // Assignment Card
+              Card(
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
                 ),
-                overflow: TextOverflow.ellipsis, // Prevent overflow
-              ),
-              SizedBox(height: 8),
-
-              // Assignment Subject
-              Text(
-                'Subject: ${widget.assignment['subject']}',
-                style: TextStyle(fontSize: 18, color: Colors.black54),
-                overflow: TextOverflow.ellipsis, // Prevent overflow
-              ),
-              SizedBox(height: 8),
-
-              // Due Date and Time
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Due Date: ${widget.assignment['dueDate']}',
-                    style: TextStyle(fontSize: 16, color: Colors.black54),
-                    overflow: TextOverflow.ellipsis, // Prevent overflow
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Due Time: ${widget.assignment['dueTime']}',
-                    style: TextStyle(fontSize: 16, color: Colors.black54),
-                    overflow: TextOverflow.ellipsis, // Prevent overflow
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
-
-              // Description Section
-              Text(
-                'Assignment Description',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 8),
-              Text(
-                'Here you can provide additional details about the assignment, such as requirements, instructions, and grading criteria.',
-                style: TextStyle(fontSize: 16, color: Colors.black54),
-                softWrap: true,  // Ensure text wraps
-                overflow: TextOverflow.visible, // Ensure text does not overflow
-              ),
-              SizedBox(height: 20),
-
-              // Upload PDF Section
-              Text(
-                'Upload Homework (PDF)',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 10),
-              GestureDetector(
-                onTap: _pickFile,
-                child: Container(
-                  padding: EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.grey),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(
-                        Icons.file_upload,
-                        color: Colors.blue,
-                      ),
-                      SizedBox(width: 10),
-                      Flexible(
-                        child: Text(
-                          _fileAttached
-                              ? _fileName
-                              : 'Tap to select a PDF file',
-                          style: TextStyle(color: Colors.black54),
-                          overflow: TextOverflow.ellipsis, // Prevent overflow
+                      Text(
+                        widget.assignment['title'],
+                        style: const TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF60B8AF), // Updated title color
                         ),
                       ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'Subject: ${widget.assignment['subject']}',
+                        style: const TextStyle(fontSize: 16, color: Colors.black87),
+                      ),
+                      const SizedBox(height: 8),
+                      _buildInfoRow(Icons.calendar_today,
+                          'Due: ${widget.assignment['dueDate']}'),
+                      const SizedBox(height: 8),
+                      _buildInfoRow(Icons.access_time,
+                          'Time: ${widget.assignment['dueTime']}'),
                     ],
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-              // Submit Button
-              Center(
-                child: ElevatedButton(
-                  onPressed: _fileAttached
-                      ? _submitAssignment
-                      : null,  // Only enable if file is attached
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepPurple,  // Corrected parameter
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+              // Description
+              const Text(
+                'Assignment Instructions',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 8),
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 5,
+                      spreadRadius: 2,
                     ),
-                  ),
-                  child: Text(
-                    widget.assignment['isSubmitted']
-                        ? 'Already Submitted'
-                        : 'Submit Assignment',
-                    style: TextStyle(fontSize: 18, color: const Color.fromARGB(255, 19, 18, 18)),
-                  ),
+                  ],
+                ),
+                child: const Text(
+                  'Please read the instructions carefully and submit your assignment in PDF format before the deadline.',
+                  style: TextStyle(fontSize: 16, color: Colors.black54),
                 ),
               ),
+              const SizedBox(height: 20),
+
+              // Upload Section
+              const Text(
+                'Upload Your Homework (PDF)',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              _buildUploadSection(),
+              const SizedBox(height: 20),
+
+              // Submit Button
+              Center(child: _buildSubmitButton()),
             ],
           ),
         ),

@@ -1,63 +1,99 @@
 import 'package:flutter/material.dart';
-import 'assignment_screen.dart';  // Import AssignmentScreen
-import 'library_screen.dart';    // Import LibraryScreen
-import 'results_screen.dart';    // Import ResultsScreen
-import 'change_profile_screen.dart';  // Import ChangeProfileScreen
-import 'notice_screen.dart';    // Import NoticeScreen (newly added)
-import 'attendance_screen.dart';  // Import AttendanceScreen
-import '../widgets/grid_item.dart'; // Import the reusable widget
-import 'subjects_screen.dart';  // Import SubjectsScreen for subject navigation
-import 'timetable_screen.dart';  // Import TimetableScreen
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart'; // Import FontAwesome
+import 'package:edu360/screens/leave_note_screen.dart';
+import 'package:edu360/screens/login_screen.dart';
+import 'assignment_screen.dart';
+import 'library_screen.dart';
+import 'results_screen.dart';
+import 'change_profile_screen.dart';
+import 'notice_screen.dart';
+import 'attendance_screen.dart';
+import '../widgets/grid_item.dart';
+import 'subjects_screen.dart';
+import 'timetable_screen.dart';
+import 'calender_screen.dart'; // Import CalendarScreen
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  // Current selected index for bottom navigation
   int _currentIndex = 0;
-
-  // List of screens for navigation
   final List<Widget> _screens = [
-    HomePageContent(),
-    NoticeScreen(),  // Corrected the use of the NoticeScreen class
-    CalendarPage(),
-    SettingsScreen(),  // Corrected to use the SettingsScreen
+    const HomePageContent(),
+    const NoticeScreen(),
+    const CalendarScreen(),  // Updated to use the CalendarScreen
+    const SettingsScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.orangeAccent,
-        title: const Text(
-          'Edu360',
-          style: TextStyle(color: Colors.white),
+        backgroundColor: Colors.white,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            ClipOval(
+              child: Image.asset(
+                'san.jpg',
+                height: 30,
+                width: 30,
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(width: 10),
+            const Expanded(
+              child: Text(
+                'Edu360',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color(0xFFF8A35A),
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
         ),
-        centerTitle: true,
         actions: const [
           Padding(
             padding: EdgeInsets.all(8.0),
-            child: Icon(Icons.notifications, color: Colors.white),
-          )
+            child: Icon(Icons.notifications, color: Colors.black),
+          ),
         ],
       ),
-      body: _screens[_currentIndex],  // Display the screen based on selected index
+      body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: 'Notice'),
-          BottomNavigationBarItem(icon: Icon(Icons.calendar_today), label: 'Calendar'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.notifications),
+            label: 'Notice',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_today),
+            label: 'Calendar',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
+          ),
         ],
-        selectedItemColor: Colors.orangeAccent,
+        selectedItemColor: const Color(0xFF47C9E0),
         unselectedItemColor: Colors.grey,
-        currentIndex: _currentIndex,  // Highlight selected index
+        currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
-            _currentIndex = index;  // Update the selected index
+            _currentIndex = index;
           });
         },
       ),
@@ -65,10 +101,14 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-// Home page content (profile card and grid items)
 class HomePageContent extends StatelessWidget {
+  const HomePageContent({super.key});
+
   @override
   Widget build(BuildContext context) {
+    final user = Supabase.instance.client.auth.currentUser;
+    final email = user?.email ?? 'No email found';
+
     return Column(
       children: [
         const SizedBox(height: 10),
@@ -76,49 +116,56 @@ class HomePageContent extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => ChangeProfileScreen(),
-              ),
+              MaterialPageRoute(builder: (context) => const ChangeProfileScreen()),
             );
           },
           child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 15),
             padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
-              color: Colors.teal[200],
+              color: const Color(0xFF73bdb6),
               borderRadius: BorderRadius.circular(15),
+              boxShadow: const [
+                BoxShadow(
+                  color: Color(0x33171515),
+                  blurRadius: 6,
+                  spreadRadius: 4,
+                  offset: Offset(0, 3),
+                ),
+              ],
             ),
             child: Row(
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 30,
                   backgroundImage: NetworkImage('https://via.placeholder.com/150'),
                 ),
                 const SizedBox(width: 15),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
+                  children: [
+                    const Text(
                       'Sanskar Satyal',
                       style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Text(
-                      'sanskarsatyal99@gmail.com',
-                      style: TextStyle(color: Colors.white70),
+                      email, // Display the dynamic email here
+                      style: const TextStyle(color: Colors.black),
                     ),
-                    SizedBox(height: 5),
-                    Text(
+                    const SizedBox(height: 5),
+                    const Text(
                       'Reliance College',
-                      style: TextStyle(color: Colors.white70),
+                      style: TextStyle(color: Colors.black),
                     ),
-                    SizedBox(height: 5),
-                    Text(
+                    const SizedBox(height: 5),
+                    const Text(
                       '9748274572',
-                      style: TextStyle(color: Colors.white70),
+                      style: TextStyle(color: Colors.black),
                     ),
                   ],
                 ),
@@ -135,85 +182,85 @@ class HomePageContent extends StatelessWidget {
             mainAxisSpacing: 10,
             children: [
               GridItem(
-                icon: Icons.calendar_today,
+                icon: FontAwesomeIcons.userCheck,
                 label: 'Attendance',
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => AttendanceScreen(),
+                      builder: (context) => const AttendanceScreen(),
                     ),
                   );
                 },
               ),
               GridItem(
-                icon: Icons.schedule,
+                icon: FontAwesomeIcons.table,
                 label: 'Time Table',
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => TimetableScreen(),  // Navigate to TimetableScreen
+                      builder: (context) => const TimetableScreen(),
                     ),
                   );
                 },
               ),
               GridItem(
-                icon: Icons.library_books,
+                icon: FontAwesomeIcons.bookOpen,
                 label: 'Library',
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => LibraryScreen(),
+                      builder: (context) => const LibraryScreen(),
                     ),
                   );
                 },
               ),
-              GridItem(
-                icon: Icons.money,
+              const GridItem(
+                icon: FontAwesomeIcons.wallet,
                 label: 'Fee',
               ),
-              GridItem(
-                icon: Icons.directions_bus,
+              const GridItem(
+                icon: FontAwesomeIcons.bus,
                 label: 'Bus',
               ),
               GridItem(
-                icon: Icons.assignment,
+                icon: FontAwesomeIcons.tasks,
                 label: 'Assignment',
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => AssignmentScreen(),
+                      builder: (context) => const AssignmentScreen(),
                     ),
                   );
                 },
               ),
               GridItem(
-                icon: Icons.book,
+                icon: FontAwesomeIcons.graduationCap,
                 label: 'Subjects',
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SubjectsScreen(),
+                      builder: (context) => const SubjectsScreen(),
                     ),
                   );
                 },
               ),
-              GridItem(
-                icon: Icons.school,
+              const GridItem(
+                icon: FontAwesomeIcons.university,
                 label: 'Exam',
               ),
               GridItem(
-                icon: Icons.grade,
+                icon: FontAwesomeIcons.chartLine,
                 label: 'Result',
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ResultsScreen(),
+                      builder: (context) => const ResultsScreen(),
                     ),
                   );
                 },
@@ -223,14 +270,6 @@ class HomePageContent extends StatelessWidget {
         ),
       ],
     );
-  }
-}
-
-// Placeholder Screens for Calendar, and Settings
-class CalendarPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text("Calendar Page"));
   }
 }
 
@@ -245,7 +284,12 @@ class SettingsScreen extends StatelessWidget {
           ListTile(
             title: const Text('Leave'),
             trailing: const Icon(Icons.chevron_right),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const LeaveNoteScreen()),
+              );
+            },
           ),
           const Divider(height: 1),
           ListTile(
@@ -258,6 +302,18 @@ class SettingsScreen extends StatelessWidget {
             title: const Text('About Us'),
             trailing: const Icon(Icons.chevron_right),
             onTap: () {},
+          ),
+          const Divider(height: 1),
+          ListTile(
+            title: const Text('Logout'),
+            trailing: const Icon(Icons.exit_to_app),
+            onTap: () async {
+              await Supabase.instance.client.auth.signOut();
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginPage()),
+              );
+            },
           ),
         ],
       ),

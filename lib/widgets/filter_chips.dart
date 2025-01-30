@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class FilterChips extends StatefulWidget {
   final Function(String) onFilterSelected;
 
-  const FilterChips({Key? key, required this.onFilterSelected}) : super(key: key);
+  const FilterChips({super.key, required this.onFilterSelected});
 
   @override
   _FilterChipsState createState() => _FilterChipsState();
@@ -20,7 +20,7 @@ class _FilterChipsState extends State<FilterChips> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           FilterChip(
-            label: Text('All Subjects'),
+            label: const Text('All Subjects'),
             selected: selectedFilter == 'All Subjects',
             onSelected: (bool selected) {
               setState(() {
@@ -30,7 +30,7 @@ class _FilterChipsState extends State<FilterChips> {
             },
           ),
           FilterChip(
-            label: Text('Math'),
+            label: const Text('Math'),
             selected: selectedFilter == 'Math',
             onSelected: (bool selected) {
               setState(() {
@@ -40,7 +40,7 @@ class _FilterChipsState extends State<FilterChips> {
             },
           ),
           FilterChip(
-            label: Text('Science'),
+            label: const Text('Science'),
             selected: selectedFilter == 'Science',
             onSelected: (bool selected) {
               setState(() {

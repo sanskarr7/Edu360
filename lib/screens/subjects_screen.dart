@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
     home: SubjectsScreen(),
   ));
 }
 
 class SubjectsScreen extends StatelessWidget {
+  const SubjectsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("Subjects"),
+        title: const Text("Subjects"),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -27,7 +29,7 @@ class SubjectsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [Colors.blue.shade100, Colors.blue.shade300],
@@ -35,7 +37,7 @@ class SubjectsScreen extends StatelessWidget {
                   end: Alignment.bottomRight,
                 ),
               ),
-              child: Column(
+              child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 40),
@@ -55,8 +57,8 @@ class SubjectsScreen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 16),
-            Padding(
+            const SizedBox(height: 16),
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
                 "Subject for you",
@@ -66,8 +68,8 @@ class SubjectsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 8),
-            Padding(
+            const SizedBox(height: 8),
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
                 children: [
@@ -85,6 +87,8 @@ class SubjectsScreen extends StatelessWidget {
 }
 
 class SubjectCard extends StatelessWidget {
+  const SubjectCard({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -93,7 +97,7 @@ class SubjectCard extends StatelessWidget {
           color: Colors.grey.shade200,
           borderRadius: BorderRadius.circular(12),
         ),
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -106,8 +110,8 @@ class SubjectCard extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            SizedBox(height: 8),
-            Padding(
+            const SizedBox(height: 8),
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
                 "Operating System",

@@ -1,12 +1,17 @@
+import 'package:edu360/screens/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'screens/home_page.dart';
-import 'screens/change_profile_screen.dart';
-import 'screens/leave_note_screen.dart';
-import 'screens/library_screen.dart';
-import 'screens/results_screen.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  await Supabase.initialize(
+    url: 'https://oyjnkcvhshmychvuzusg.supabase.co', 
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im95am5rY3Zoc2hteWNodnV6dXNnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzgxNTQ3OTQsImV4cCI6MjA1MzczMDc5NH0.5RACY_uF_s5935N03jw2vI9WmMWrnYGQYboj1cJX6XA',
+  );
+
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -16,12 +21,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      title: 'Flutter Supabase Auth',
+      initialRoute: '/',
       routes: {
-        '/changeProfile': (context) => ChangeProfileScreen(),
-        '/leaveNote': (context) => LeaveNoteScreen(),
-        '/library': (context) => LibraryScreen(),
-        '/results': (context) => ResultsScreen(),
+        '/': (context) => const LoginPage(),
+        '/home': (context) => const HomePage(),
       },
     );
   }
