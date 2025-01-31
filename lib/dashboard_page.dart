@@ -11,6 +11,10 @@ import 'screens/timetable_screen.dart';
 import 'screens/assignment_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../widgets/grid_item.dart';
+import './login_page.dart';
+import 'screens/calender_screen.dart';
+
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -25,7 +29,7 @@ class _DashboardPageState extends State<DashboardPage> {
   final List<Widget> _screens = [
     _DashboardContent(),
     NoticeScreen(),
-    CalendarPage(),
+    CalendarScreen(),
     SettingsScreen(),
   ];
 
@@ -82,6 +86,8 @@ class _DashboardPageState extends State<DashboardPage> {
 class _DashboardContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final user = Supabase.instance.client.auth.currentUser;
+    final email = user?.email ?? 'No email found';
     return Column(
       children: [
         const SizedBox(height: 10),
@@ -116,7 +122,7 @@ class _DashboardContent extends StatelessWidget {
                     ),
                     const SizedBox(height: 5),
                     Text(
-                      'sanskarsatyal99@gmail.com',
+                      email,
                       style: const TextStyle(color: Colors.white70),
                     ),
                     const SizedBox(height: 5),
@@ -228,14 +234,14 @@ class _DashboardContent extends StatelessWidget {
   }
 }
 
-class CalendarPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(AppLocalizations.of(context)!.calendar),
-    );
-  }
-}
+// class CalendarPage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Center(
+//       child: Text(AppLocalizations.of(context)!.calendar),
+//     );
+//   }
+// }
 
 class SettingsScreen extends StatelessWidget {
   @override
@@ -261,6 +267,17 @@ class SettingsScreen extends StatelessWidget {
             title: Text(AppLocalizations.of(context)!.aboutUs),
             trailing: const Icon(Icons.chevron_right),
             onTap: () {},
+          ),
+          ListTile(
+            title:  Text(AppLocalizations.of(context)!.logout),
+            trailing: const Icon(Icons.exit_to_app),
+            onTap: () async {
+              await Supabase.instance.client.auth.signOut();
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage(onLocaleChange: (Locale ) {  },)),
+              );
+            },
           ),
         ],
       ),
