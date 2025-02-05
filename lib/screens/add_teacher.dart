@@ -131,7 +131,7 @@ class _AddTeacherScreenState extends State<AddTeacherScreen> {
                       icon: Icon(Icons.add_a_photo),
                       label: Text('Add Picture'),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.yellow.shade700,
+                        backgroundColor: const Color(0xFFf8a35a),
                         foregroundColor: Colors.black,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12.0),
@@ -154,10 +154,10 @@ class _AddTeacherScreenState extends State<AddTeacherScreen> {
                   icon: Icon(Icons.add),
                   label: Text('Add'),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.yellow.shade700,
+                    backgroundColor: const Color.fromARGB(255, 20, 223, 179),
                     foregroundColor: Colors.black,
                     padding:
-                        EdgeInsets.symmetric(horizontal: 32.0, vertical: 12.0),
+                        EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12.0),
                     ),

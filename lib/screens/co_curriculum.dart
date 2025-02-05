@@ -1,33 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:my_first/screens/add_notice.dart';
 
-class NoticeBoardScreen extends StatefulWidget {
+class CoCurriculum extends StatefulWidget {
   @override
   _NoticeBoardScreenState createState() => _NoticeBoardScreenState();
 }
 
-class _NoticeBoardScreenState extends State<NoticeBoardScreen> {
+class _NoticeBoardScreenState extends State<CoCurriculum> {
   final TextEditingController _searchController = TextEditingController();
   List<Map<String, dynamic>> notices = [
     {
-      "title": "Title 1",
+      "title": "Bio Lab",
       "content": "This is the content of notice 1",
       "expanded": false
     },
     {
-      "title": "Academic Activities called off",
+      "title": "Computer Lab",
       "content":
           "Due to unexpected circumstances, academic activities are postponed.",
       "expanded": false
     },
     {
-      "title": "Please Follow the rules and timetable",
+      "title": "Social fieldtrip",
       "content":
           "All students must strictly adhere to the timetable and school rules.",
       "expanded": false
     },
     {
-      "title": "Day off on Sunday",
+      "title": "Nepali Poem presentation",
       "content": "The school will remain closed on Sunday.",
       "expanded": false
     }
@@ -109,7 +109,7 @@ class _NoticeBoardScreenState extends State<NoticeBoardScreen> {
     return Scaffold(
       appBar: AppBar(
         title:
-            Text('Notice Board', style: TextStyle(fontWeight: FontWeight.bold)),
+            Text('Co-Crriculum', style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
         elevation: 0,
       ),
@@ -124,7 +124,7 @@ class _NoticeBoardScreenState extends State<NoticeBoardScreen> {
                 prefixIcon: Icon(Icons.search),
                 hintText: "Find Notices...",
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(50.0)),
+                    borderRadius: BorderRadius.circular(12.0)),
               ),
             ),
             SizedBox(height: 10),
@@ -135,8 +135,7 @@ class _NoticeBoardScreenState extends State<NoticeBoardScreen> {
               icon: Icon(Icons.add),
               label: Text("Add Notice"),
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                backgroundColor: const Color.fromARGB(255, 20, 223, 179),
+                backgroundColor: const Color.fromRGBO(251, 192, 45, 1),
                 foregroundColor: Colors.black,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.0)),
@@ -176,7 +175,7 @@ class _NoticeBoardScreenState extends State<NoticeBoardScreen> {
                           children: [
                             IconButton(
                               icon: Icon(Icons.edit,
-                                  color: const Color(0xFFf8a35a)),
+                                  color: const Color.fromRGBO(251, 192, 45, 1)),
                               onPressed: () =>
                                   _editNotice(notices.indexOf(notice)),
                             ),

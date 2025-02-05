@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_first/screens/menu_screen.dart';
+import 'package:my_first/screens/add_assignment.dart';
 
 void main() {
   runApp(AssignmentApp());
@@ -32,24 +32,16 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
         title:
             Text('Assignment', style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => MenuScreen()),
-          ),
-        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             ElevatedButton.icon(
-              onPressed: () {},
               icon: Icon(Icons.add),
               label: Text('Add Assignment'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.yellow.shade700,
+                backgroundColor: const Color(0xFF14DFB3),
                 foregroundColor: Colors.black,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12.0),
@@ -57,6 +49,13 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
                 padding: EdgeInsets.symmetric(vertical: 12.0),
                 minimumSize: Size(200, 50), // Fixed size
               ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => AddAssignmentScreen()),
+                );
+              },
             ),
             SizedBox(height: 16.0),
             _buildFilterCard(),
@@ -94,7 +93,7 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
               icon: Icon(Icons.search),
               label: Text('Search'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.yellow.shade700,
+                backgroundColor: const Color(0xFFf8a35a),
                 foregroundColor: Colors.black,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12.0),
@@ -191,7 +190,7 @@ class _AssignmentScreenState extends State<AssignmentScreen> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 _buildActionBtn(
-                    'Edit', Colors.yellow.shade700, Colors.black, () {}),
+                    'Edit', const Color(0xFFf8a35a), Colors.black, () {}),
                 SizedBox(width: 10.0),
                 _buildActionBtn('Delete', Colors.red, Colors.white, () {}),
               ],

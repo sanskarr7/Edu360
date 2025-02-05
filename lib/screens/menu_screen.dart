@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:my_first/screens/assignment.dart';
+import 'package:my_first/screens/attendance.dart';
+import 'package:my_first/screens/exam_routine.dart';
+import 'package:my_first/screens/fees_screen.dart';
+import 'package:my_first/screens/mark_sheet.dart';
 import 'package:my_first/screens/notice.dart';
 import 'package:my_first/screens/student_screen.dart';
+import 'package:my_first/screens/subjects.dart';
+import 'package:my_first/screens/timetable.dart'; // Import the TimeTableScreen
 import 'teacher_screen.dart'; // Import the TeacherScreen
+import 'class.dart'; // Import the ClassScreen
 
 class MenuScreen extends StatelessWidget {
   final List<Map<String, dynamic>> menuItems = [
@@ -11,9 +18,10 @@ class MenuScreen extends StatelessWidget {
     {'icon': Icons.school, 'title': 'Learning'},
     {'icon': Icons.assignment, 'title': 'Assignment'},
     {'icon': Icons.assessment, 'title': 'Assessment'},
+    {'icon': Icons.check, 'title': 'Mark Sheets'},
     {'icon': Icons.bar_chart, 'title': 'Attendance'},
     {'icon': Icons.book, 'title': 'Subjects'},
-    {'icon': Icons.attach_money, 'title': 'Payments'},
+    {'icon': Icons.attach_money, 'title': 'Fees'},
     {'icon': Icons.schedule, 'title': 'Timetable'},
     {'icon': Icons.notifications_none, 'title': 'Notices'},
     {'icon': Icons.settings, 'title': 'Settings'},
@@ -49,6 +57,12 @@ class MenuScreen extends StatelessWidget {
                     title: Text('Curriculum'),
                     onTap: () {
                       // Navigate to Curriculum screen or perform an action
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ClassScreen(),
+                        ),
+                      );
                     },
                   ),
                   ListTile(
@@ -100,7 +114,7 @@ class MenuScreen extends StatelessWidget {
                       ),
                     );
                   } else if (item['title'] == 'Notices') {
-                    // Navigate to StudentScreen
+                    // Navigate to NoticeBoardScreen
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -108,11 +122,59 @@ class MenuScreen extends StatelessWidget {
                       ),
                     );
                   } else if (item['title'] == 'Assignment') {
-                    // Navigate to StudentScreen
+                    // Navigate to AssignmentApp
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AssignmentApp(),
+                        builder: (context) => AssignmentScreen(),
+                      ),
+                    );
+                  } else if (item['title'] == 'Attendance') {
+                    // Navigate to AttendanceScreen
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AttendanceScreen(),
+                      ),
+                    );
+                  } else if (item['title'] == 'Assessment') {
+                    // Navigate to ExamRoutineScreen
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ExamRoutineScreen(),
+                      ),
+                    );
+                  } else if (item['title'] == 'Timetable') {
+                    // Navigate to TimeTableScreen directly
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TimeTableScreen(),
+                      ),
+                    );
+                  } else if (item['title'] == 'Fees') {
+                    // Navigate to TimeTableScreen directly
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CollectFeesScreen(),
+                      ),
+                    );
+                  } else if (item['title'] == 'Mark Sheets') {
+                    // Navigate to TimeTableScreen directly
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MarkSheetScreen(),
+                      ),
+                    );
+                  } else if (item['title'] == 'Subjects') {
+                    // Navigate to TimeTableScreen directly
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ClassesWithSubjectsScreen(),
                       ),
                     );
                   }

@@ -21,10 +21,10 @@ class HomeScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _buildStatCard(
-                    'Total Students', '500', Icons.people, Colors.purple),
-                _buildStatCard('Total Teachers', '8', Icons.work,
-                    const Color.fromRGBO(103, 58, 183, 1)),
-                ],
+                    'Total Students', '500', Icons.people, Color(0xFF60B8AF)),
+                _buildStatCard(
+                    'Total Teachers', '8', Icons.work, const Color(0xFFf8a35a)),
+              ],
             ),
             SizedBox(height: 16.0),
             Row(
@@ -33,7 +33,7 @@ class HomeScreen extends StatelessWidget {
                 _buildStatCard('Revenue', 'Rs.20000', Icons.attach_money,
                     const Color.fromARGB(255, 76, 175, 80)),
                 _buildStatCard('Total Profit', 'Rs.20000', Icons.trending_up,
-                    const Color(0xFF14BF9D)),
+                    const Color.fromARGB(255, 1, 8, 7)),
               ],
             ),
             SizedBox(height: 16.0),

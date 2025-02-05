@@ -58,20 +58,31 @@ class TeacherScreen extends StatelessWidget {
             Row(
               children: [
                 // Filter button
-                DropdownButton<String>(
-                  elevation: 16,
-                  value: 'All',
-                  items: ['All', 'Class a', 'Class b']
-                      .map((String category) => DropdownMenuItem(
-                            value: category,
-                            child: Text(category),
-                          ))
-                      .toList(),
-                  onChanged: (String? newValue) {
-                    // Handle filter change
-                  },
-                  style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0)),
-                  dropdownColor: Colors.grey[200],
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 12),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFf8a35a),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: DropdownButton<String>(
+                    elevation: 1,
+                    value: 'All',
+                    items: ['All', 'Class 1', 'Class 2', 'Class 3']
+                        .map((String category) => DropdownMenuItem(
+                              value: category,
+                              child: Text(category),
+                            ))
+                        .toList(),
+                    onChanged: (String? newValue) {
+                      // Handle filter change
+                    },
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold),
+                    underline: Container(),
+                    dropdownColor: const Color(0xFFf8a35a),
+                    icon: Icon(Icons.arrow_drop_down, color: Colors.black),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                 ),
                 Spacer(),
                 // Add button
@@ -79,10 +90,11 @@ class TeacherScreen extends StatelessWidget {
                   icon: Icon(Icons.add),
                   label: Text('Add'),
                   style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 21),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12.0),
                     ),
-                    backgroundColor: Colors.yellow[700],
+                    backgroundColor: const Color(0xFF14DFB3),
                   ),
                   onPressed: () {
                     // Navigate to AddTeacherScreen
@@ -142,7 +154,8 @@ class TeacherScreen extends StatelessWidget {
                           ),
                           // Action buttons
                           IconButton(
-                            icon: Icon(Icons.edit, color: Colors.yellow[700]),
+                            icon: Icon(Icons.edit,
+                                color: const Color(0xFFf8a35a)),
                             onPressed: () {
                               // Handle edit action
                             },
